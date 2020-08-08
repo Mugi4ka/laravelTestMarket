@@ -3,7 +3,7 @@
 @section('title', 'Корзина')
 
 @section('content')
-        <p class="alert alert-success">Добавлен товар iPhone X 64GB</p>
+{{--        <p class="alert alert-success">Добавлен товар iPhone X 64GB</p>--}}
         <h1>Корзина</h1>
         <p>Оформление заказа</p>
         <div class="panel">
@@ -21,7 +21,7 @@
                     <tr>
                         <td>
                             <a href="{{ route('product' , [$product->category->code, $product->code]) }}">
-                                <img height="56px" src="http://internet-shop.tmweb.ru/storage/products/iphone_x.jpg">
+                                <img height="56px" src="{{ Storage::url($product->image) }}">
                                 {{ $product->name }}
                             </a>
                         </td>
