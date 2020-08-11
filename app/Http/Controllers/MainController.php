@@ -3,14 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\ProductsFilterRequest;
 use App\Product;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-    public function index()
+    public function index(ProductsFilterRequest $request)
     {
-        $productList = Product::get();
+        $productsQuery = Product::query();
+
+        if ($request->filled('price_from')) {
+            $productsQuery->where('price', '>=', $request->price_from);
+        }
+        if ($request->filled('price_to')) {
+            $productsQuery->where('price', '<=', $request->price_to);
+        }
+
+        foreach (['hit', 'recommend', 'new'] as $field) {
+            if ($request->has($field)) {
+                $productsQuery->where($field, 1);
+            }
+        }
+
+        $productList = $productsQuery->paginate(3)->withPath("?" . $request->getQueryString());
         return view('index', compact('productList'));
     }
 
