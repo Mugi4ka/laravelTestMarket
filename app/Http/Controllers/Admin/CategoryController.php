@@ -42,11 +42,10 @@ class CategoryController extends Controller
         $params = $request->all();
         unset($params['image']);
         if ($request->has('image')) {
-            $path = $request->file('image')->store('categories');
-            $params['image'] = $path;
+            $params['image'] = $request->file('image')->store('categories');
         }
         Category::create($params);
-        return redirect()->route('categories.index', compact('categories'));
+        return redirect()->route('categories.index');
     }
 
     /**

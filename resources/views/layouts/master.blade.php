@@ -25,7 +25,7 @@
                 <li @routeactive('categor*')><a href="{{ route('categories') }}">Категории</a>
                 </li>
                 <li @routeactive('basket*')><a href="{{ route('basket') }}">В корзину</a></li>
-                <li><a href="http://internet-shop.tmweb.ru/reset">Сбросить проект в начальное состояние</a></li>
+                <li><a href="{{ route('reset') }}">Сбросить проект в начальное состояние</a></li>
                 <li><a href="http://internet-shop.tmweb.ru/locale/en">en</a></li>
 
                 <li class="dropdown">
@@ -41,10 +41,14 @@
 
             <ul class="nav navbar-nav navbar-right">
                 @guest()
-                    <li><a href="{{ route('login') }}">Панель администратора</a></li>
+                    <li><a href="{{ route('login') }}">Войти</a></li>
                 @endguest
                 @auth()
-                    <li><a href="{{ route('home') }}">Панель администратора</a></li>
+                    @admin(Auth::user()->isAdmin())
+                            <li><a href="{{ route('home') }}">Панель администратора</a></li>
+                    @else
+                            <li><a href="{{ route('person.orders.index') }}">Мои заказы</a></li>
+                    @endadmin
                     <li><a href="{{ route('get-logout') }}">Выйти</a></li>
                 @endauth
             </ul>
