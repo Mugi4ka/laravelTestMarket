@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Http\Requests\ProductsFilterRequest;
-use App\Product;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -22,11 +22,11 @@ class MainController extends Controller
 
         foreach (['hit', 'recommend', 'new'] as $field) {
             if ($request->has($field)) {
-                $productsQuery->where($field, 1);
+                $productsQuery->$field();
             }
         }
 
-        $productList = $productsQuery->paginate(3)->withPath("?" . $request->getQueryString());
+        $productList = $productsQuery->paginate(9)->withPath("?" . $request->getQueryString());
         return view('index', compact('productList'));
     }
 
@@ -43,8 +43,9 @@ class MainController extends Controller
 
     }
 
-    public function product($category, $product = null)
+    public function product($category, $productCode)
     {
+        $product = Product::withTrashed()->byCode($productCode)->first();
         return view('product', compact('product'));
     }
 

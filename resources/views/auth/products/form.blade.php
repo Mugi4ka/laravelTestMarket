@@ -103,6 +103,16 @@
                     </div>
                 </div>
                 <br>
+                <div class="input-group row">
+                    <label for="count" class="col-sm-2 col-form-label">Количество: </label>
+                    <div class="col-sm-2">
+                        @include('auth.layouts.error', ['fieldName' => 'count'])
+                        <input type="text" class="form-control" name="count" id="count"
+                               value="@isset($product){{ $product->count }}@endisset">
+                    </div>
+                </div>
+                <br>
+
                 @foreach(['new' => 'Новинка','hit' => 'Хит','recommend' => 'Рекомендуемые'] as $field => $title)
                     <div class="input-group row">
                         <label for="price" class="col-sm-2 col-form-label">{{$title}}: </label>

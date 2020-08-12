@@ -1,11 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
 //    public function getCategory()
 //    {
 //        $category = Category::find($this->category_id);
@@ -24,6 +26,7 @@ class Product extends Model
             'hit',
             'recommend',
             'new',
+            'count',
         ];
 
     public function category()
@@ -39,6 +42,22 @@ class Product extends Model
         return $this->price;
     }
 
+    public function scopeHit($query){
+        return $query->where('hit', 1);
+    }
+
+    public function scopeNew($query){
+        return $query->where('new', 1);
+    }
+
+    public function scopeRecommend($query){
+        return $query->where('recommend', 1);
+    }
+
+    public function scopeByCode($query, $code){
+        return $query->where('code', $code);
+    }
+
     public function setNewAttribute($value)
     {
         $this->attributes['new'] = $value === 'on' ? 1 : 0;
@@ -52,6 +71,11 @@ class Product extends Model
     public function setRecommendAttribute($value)
     {
         $this->attributes['recommend'] = $value === 'on' ? 1 : 0;
+    }
+
+    public function isAvailable(){
+
+        return !$this->trashed() && $this->count > 0;
     }
     public function isHit()
     {

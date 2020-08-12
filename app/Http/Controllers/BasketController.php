@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
-use App\Product;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,6 +33,9 @@ class BasketController extends Controller
         } else {
             session()->flash('warning', 'Произошла ошибка');
         }
+
+        Order::eraseOrderSum();
+
         return redirect()->route('index');
     }
 
@@ -55,7 +58,6 @@ class BasketController extends Controller
         } else {
             $order = Order::find($orderId);
         }
-
         if ($order->products->contains($productId)) {
             $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
             $pivotRow->count++;
@@ -70,6 +72,8 @@ class BasketController extends Controller
         }
 
         $product = Product::find($productId);
+
+        Order::changeFullSum($product->price);
 
         session()->flash('success', $product->name . 'добавлен');
 
@@ -94,6 +98,9 @@ class BasketController extends Controller
             }
 
             $product = Product::find($productId);
+
+            Order::changeFullSum(-$product->price);
+
             session()->flash('warning', $product->name . 'удалён');
 
             return redirect()->route('basket');

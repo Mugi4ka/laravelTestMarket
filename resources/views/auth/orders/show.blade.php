@@ -36,7 +36,7 @@
                         @endforeach
                         <tr>
                             <td colspan="3">Общая стоимость:</td>
-                            <td>{{ $order->sum }} {{ $order->currency->symbol }}</td>
+                            <td>{{ $order->calculateFullSum() }}</td>
                         </tr>
 {{--                        @if($order->hasCoupon())--}}
 {{--                            <tr>--}}

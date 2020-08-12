@@ -33,8 +33,7 @@
                     @admin
                     <li class="nav-item"><a href="{{ route('categories.index') }}">Категории</a></li>
                     <li class="nav-item"><a href="{{ route('products.index') }}">Товары</a></li>
-                    @else
-                        <li class="nav-item"><a href="{{ route('home') }}">Заказы</a></li>
+                    <li class="nav-item"><a href="{{ route('home') }}">Заказы</a></li>
                     @endadmin
                 </ul>
                 @guest()
