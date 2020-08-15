@@ -26,7 +26,7 @@
                 </li>
                 <li @routeactive('basket*')><a href="{{ route('basket') }}">В корзину</a></li>
                 <li><a href="{{ route('reset') }}">Сбросить проект в начальное состояние</a></li>
-                <li><a href="{{ route('locale', 'ru') }}">Переключить язык</a></li>
+                <li><a href="{{ route('locale', __('main.set_lang')) }}">@lang('main.set_lang')</a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"

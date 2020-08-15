@@ -2,7 +2,7 @@
     Уважаемый {{ $name }},
 </p>
 <p>
-    Ваш заказ на сумму {{ $fullSum }} создан
+    @lang('mail.order_created.your_order') {{ $fullSum }} создан
 </p>
 <table>
     <tbody>

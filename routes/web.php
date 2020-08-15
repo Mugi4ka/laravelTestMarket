@@ -27,12 +27,12 @@ Route::get('locale/{locale}', 'MainController@changeLocale')->name('locale');
 Route::get('/logout', 'Auth\LoginController@logout')->name('get-logout');
 
 Route::middleware('set_locale')->group(function () {
-    Route::middleware(['auth'])->group(function (){
+    Route::middleware(['auth'])->group(function () {
         Route::group([
-            'prefix'=>'person',
-            'namespace'=>'Person',
-            'as'=>'person.',
-        ],function () {
+            'prefix' => 'person',
+            'namespace' => 'Person',
+            'as' => 'person.',
+        ], function () {
             Route::get('/orders', 'OrderController@index')->name('orders.index');
             Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
         });
@@ -54,13 +54,8 @@ Route::middleware('set_locale')->group(function () {
     });
 
 
-
-
-
     Route::get('/', 'MainController@index')->name('index');
-
     Route::post('subscription/{product}', "MainController@subscribe")->name('subscription');
-
 
 
 //Basket
