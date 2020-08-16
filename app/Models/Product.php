@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes,Translatable;
 //    public function getCategory()
 //    {
 //        $category = Category::find($this->category_id);
@@ -27,6 +28,8 @@ class Product extends Model
             'recommend',
             'new',
             'count',
+            'name_en',
+            'description_en'
         ];
 
     public function category()
