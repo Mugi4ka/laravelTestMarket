@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductsFilterRequest;
 use App\Http\Requests\SubscriptionRequest;
 use App\Models\Category;
+use App\Models\Currency;
 use App\Models\Product;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class MainController extends Controller
             }
         }
 
-        $productList = $productsQuery->paginate(9)->withPath("?" . $request->getQueryString());
+        $productList = $productsQuery->paginate(9)->withPath("?"
+            .$request->getQueryString());
         return view('index', compact('productList'));
     }
 
@@ -55,7 +57,7 @@ class MainController extends Controller
     public function subscribe(SubscriptionRequest $request, Product $product)
     {
         Subscription::create([
-            'email' => $request->email,
+            'email'      => $request->email,
             'product_id' => $product->id,
         ]);
         return redirect()->back()->with('success', 'С вами свяжутся');
@@ -63,8 +65,19 @@ class MainController extends Controller
 
     public function changeLocale($locale)
     {
+        $availableLocales = ['ru', 'en'];
+        if (!in_array($locale, $availableLocales)) {
+            $locale = config('app.locale');
+        }
         session(['locale' => $locale]);
         App::setLocale($locale);
+        return redirect()->back();
+    }
+
+    public function changeCurrency($currencyCode)
+    {
+        $currency = Currency::byCode($currencyCode)->firstOrFail();
+        session(['currency' => $currency->code]);
         return redirect()->back();
     }
 
