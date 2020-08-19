@@ -91,7 +91,6 @@ class Basket
 
     public function addProduct(Product $product)
     {
-
         if ($this->order->products->contains($product->id)) {
             $pivotRow = $this->getPivotRow($product);
             $pivotRow->count++;

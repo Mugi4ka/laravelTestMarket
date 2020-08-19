@@ -22,23 +22,22 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li @routeactive('index')><a href="{{ route('index') }}">@lang('main.all_products')</a></li>
-                <li @routeactive('categor*')><a href="{{ route('categories') }}">Категории</a>
+                <li @routeactive('categor*')><a href="{{ route('categories') }}">@lang('main.categories')</a>
                 </li>
-                <li @routeactive('basket*')><a href="{{ route('basket') }}">В корзину</a></li>
-                <li><a href="{{ route('reset') }}">Сбросить проект в начальное состояние</a></li>
+                <li @routeactive('basket*')><a href="{{ route('basket') }}">@lang('main.card')</a></li>
+                <li><a href="{{ route('reset') }}">@lang('main.reset_project')</a></li>
                 <li><a href="{{ route('locale', __('main.set_lang')) }}">@lang('main.set_lang')</a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">{{ \App\Services\CurrencyConversion::getCurrencySymbol() }}<span class="caret"></span></a>
+                       aria-expanded="false">{{ $currencySymbol }}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        @foreach(\App\Services\CurrencyConversion::getCurrencies() as $currency)
+                        @foreach($currencies as $currency)
                             <li><a href="{{ route('currency', $currency->code) }}">{{ $currency->symbol }}</a></li>
                         @endforeach
                     </ul>
                 </li>
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
                 @guest()
                     <li><a href="{{ route('login') }}">Войти</a></li>

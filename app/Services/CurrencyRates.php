@@ -13,7 +13,8 @@ class CurrencyRates
     {
         $baseCurrency = CurrencyConversion::getBaseCurrency();
 
-        $url = config('currency-rates.api_url') . '?base=' . $baseCurrency->code;
+        $url = config('currency_rates.api_url') . '?base=' . $baseCurrency->code;
+
 
         $client = new Client();
 
