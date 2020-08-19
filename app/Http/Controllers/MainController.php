@@ -8,13 +8,13 @@ use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Product;
 use App\Models\Subscription;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 class MainController extends Controller
 {
     public function index(ProductsFilterRequest $request)
     {
+
         $productsQuery = Product::with('category');
 
         if ($request->filled('price_from')) {

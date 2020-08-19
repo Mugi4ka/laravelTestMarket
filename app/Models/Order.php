@@ -8,12 +8,12 @@ class Order extends Model
 {
 
     protected $fillable = [
-      'user_id',
+        'user_id', 'currency_id', 'sum',
     ];
 
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot('count')->withTimestamps();
+        return $this->belongsToMany(Product::class)->withPivot(['count', 'price'])->withTimestamps();
     }
 
 //    public function user() {
