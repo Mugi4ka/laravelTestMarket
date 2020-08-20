@@ -29,8 +29,6 @@ class BasketController extends Controller
             session()->flash('warning', 'Превышено количество имеющегося товара');
         }
 
-        Order::eraseOrderSum();
-
         return redirect()->route('index');
     }
 
@@ -49,7 +47,8 @@ class BasketController extends Controller
 
     public function BasketAdd(Product $product)
     {
-        $result = (new Basket(true))->addProduct($product);
+        $basket = new Basket(true);
+        $result = $basket->addProduct($product);
 
         if ($result) {
             session()->flash('success', $product->name . ' добавлен');

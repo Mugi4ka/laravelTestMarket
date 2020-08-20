@@ -36,36 +36,23 @@ class Order extends Model
         return $sum;
     }
 
-    public static function eraseOrderSum()
+    public function getFullSum()
     {
-        session()->forget('full_order_sum');
-    }
+        $sum = 0;
 
-    public static function changeFullSum($changeSum)
-    {
-        $sum = self::getFullSum() + $changeSum;
-
-        session(['full_order_sum' => $sum]);
-    }
-
-    public static function getFullSum()
-    {
-        return $sum = session('full_order_sum', 0);
+        foreach ($this->products as $product) {
+            $sum += $product->price * $product->countInOrder;
+        }
+        return $sum;
     }
 
     public function saveOrder($name, $phone)
     {
-
-        if ($this->status == 0) {
             $this->name = $name;
             $this->phone = $phone;
             $this->status = 1;
             $this->save();
             session()->forget('orderId');
             return true;
-        } else {
-            return false;
-        }
-
     }
 }
