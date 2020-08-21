@@ -48,11 +48,22 @@ class Order extends Model
 
     public function saveOrder($name, $phone)
     {
-            $this->name = $name;
-            $this->phone = $phone;
-            $this->status = 1;
-            $this->save();
-            session()->forget('orderId');
-            return true;
+        $this->name = $name;
+        $this->phone = $phone;
+        $this->status = 1;
+        $this->sum = $this->getFullSum();
+
+        $products = $this->products;
+        $this->save();
+
+        foreach ($products as $productInOrder) {
+            $pivot = $this->products()->attach($productInOrder, [
+                'count' => $productInOrder->countInOrder,
+                'price' => $productInOrder->price,
+            ]);
+        }
+
+        session()->forget('order');
+        return true;
     }
 }

@@ -7,7 +7,7 @@
 <table>
     <tbody>
     @foreach($order->products as $product)
-        <td><span class="badge">{{ $product->pivot->count }}</span>
+        <td><span class="badge">{{ $product->countInOrder }}</span>
             <div class="btn-group form-inline">
                 <form action="{{ route('basket-remove', $product) }}" method="POST">
                     <button type="submit" class="btn btn-danger" href="">
@@ -23,7 +23,7 @@
                 </form>
             </div>
         </td>
-        <td>{{ $product->price }} ₽</td>
+        <td>{{ $product->price }} {{ \App\Services\CurrencyConversion::getCurrencySymbol() }}₽</td>
         <td>{{ $product->getPriceForCount() }} ₽</td>
     @endforeach
     </tbody>

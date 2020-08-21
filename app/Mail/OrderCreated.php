@@ -34,10 +34,11 @@ class OrderCreated extends Mailable
      */
     public function build()
     {
-        $fullSum = $this->order->calculateFullSum();
+        $fullSum = $this->order->getFullSum();
         return $this->view('mail.order_created', [
             'name' => $this->name,
             'fullSum' => $fullSum,
             'order' => $this->order]);
+
     }
 }

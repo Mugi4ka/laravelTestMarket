@@ -27,8 +27,7 @@ class Basket
             if (Auth::check()) {
                 $data['user_id'] = Auth::id();
             }
-
-            $data['currency_id'] = CurrencyConversion::getCurrentCurrencyFromSession();
+            $data['currency_id'] = CurrencyConversion::getCurrentCurrencyFromSession()->id;
 
             $this->order = new Order($data);
             session(['order' => $this->order]);
@@ -50,8 +49,9 @@ class Basket
         if (!$this->countAvailable()) {
             return false;
         }
-        Mail::to($email)->send(new OrderCreated($name, $this->getOrder()));
-        return $this->order->saveOrder($name, $phone);
+        $this->order->saveOrder($name, $phone);
+//        Mail::to($email)->send(new OrderCreated($name, $this->getOrder()));
+        return true;
     }
 
     public function countAvailable($updateCount = false)

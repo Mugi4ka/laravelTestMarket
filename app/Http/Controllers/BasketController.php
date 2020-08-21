@@ -21,9 +21,7 @@ class BasketController extends Controller
     {
         $email = Auth::check() ? Auth::user()->email : $request->email;
 
-        $success = (new Basket())->saveOrder($request->name, $request->phone, $email);
-
-        if ($success) {
+        if ((new Basket())->saveOrder($request->name, $request->phone, $email)) {
             session()->flash('success', 'Ваш заказ принят в обработку');
         } else {
             session()->flash('warning', 'Превышено количество имеющегося товара');
