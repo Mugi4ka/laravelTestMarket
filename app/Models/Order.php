@@ -16,11 +16,9 @@ class Order extends Model
         return $this->belongsToMany(Product::class)->withPivot(['count', 'price'])->withTimestamps();
     }
 
-//    public function user() {
-//
-//        return $this->belongsTo(User::class);
-//
-//    }
+    public function currency() {
+        return $this->belongsTo(Currency::class);
+    }
 
     public function scopeActive($query)
     {

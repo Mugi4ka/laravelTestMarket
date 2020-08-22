@@ -30,9 +30,9 @@
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false"><span class="caret">{{ \App\Services\CurrencyConversion::getCurrencySymbol() }}</span></a>
+                       aria-expanded="false"><span class="caret">{{ $currencySymbol }}</span></a>
                     <ul class="dropdown-menu">
-                        @foreach(\App\Services\CurrencyConversion::getCurrencies() as $currency)
+                        @foreach($currencies as $currency)
                             <li><a href="{{ route('currency', $currency->code) }}">{{ $currency->symbol }}</a></li>
                         @endforeach
                     </ul>
@@ -44,9 +44,9 @@
                 @endguest
                 @auth()
                     @admin(Auth::user()->isAdmin())
-                            <li><a href="{{ route('home') }}">Панель администратора</a></li>
-                    @else
-                            <li><a href="{{ route('person.orders.index') }}">Мои заказы</a></li>
+                    <li><a href="{{ route('home') }}">Панель администратора</a></li>
+                @else
+                    <li><a href="{{ route('person.orders.index') }}">Мои заказы</a></li>
                     @endadmin
                     <li><a href="{{ route('get-logout') }}">Выйти</a></li>
                 @endauth
@@ -67,5 +67,29 @@
         @yield('content')
     </div>
 </div>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6"><p>Категории товаров</p>
+                <ul>
+                    @foreach($categories as $category)
+                        <li><a href="{{ route('category', $category->code) }}">{{ $category->__('name') }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="col-lg-6"><p>Самые популярные товары</p>
+                <ul>
+                    @foreach($bestProducts as $bestProduct)
+                        <li>
+                            <a href="{{ route('product', [$bestProduct->category->code, $bestProduct->code]) }}">{{ $bestProduct->__('name') }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>

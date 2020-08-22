@@ -39,6 +39,12 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    //TODO check table name relation
+    public function skus()
+    {
+        return $this->hasMany(Sku::class);
+    }
+
     public function getPriceForCount()
     {
         if (!is_null($this->pivot)) {

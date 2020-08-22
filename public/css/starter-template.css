@@ -45,3 +45,10 @@ span.badge.badge-danger {
 div.filters {
     padding-bottom: 5px;
 }
+
+footer {
+    padding-bottom: 50px;
+    padding-top: 50px;
+    color: #99979c;
+    background-color: #2a2730;
+}

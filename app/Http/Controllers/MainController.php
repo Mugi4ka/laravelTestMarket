@@ -31,15 +31,14 @@ class MainController extends Controller
             }
         }
 
-        $productList = $productsQuery->paginate(9)->withPath("?"
-            .$request->getQueryString());
+        $productList = $productsQuery->paginate(9)->withPath("?" . $request->getQueryString());
+
         return view('index', compact('productList'));
     }
 
     public function categories()
     {
-        $categories = Category::get();
-        return view('categories', compact('categories'));
+        return view('categories');
     }
 
     public function category($code)
@@ -58,7 +57,7 @@ class MainController extends Controller
     public function subscribe(SubscriptionRequest $request, Product $product)
     {
         Subscription::create([
-            'email'      => $request->email,
+            'email' => $request->email,
             'product_id' => $product->id,
         ]);
         return redirect()->back()->with('success', 'С вами свяжутся');
