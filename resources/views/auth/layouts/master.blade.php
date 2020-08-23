@@ -33,6 +33,8 @@
                     @admin
                     <li class="nav-item"><a href="{{ route('categories.index') }}">Категории</a></li>
                     <li class="nav-item"><a href="{{ route('products.index') }}">Товары</a></li>
+                    <li class="nav-item"><a href="{{ route('properties.index') }}">Свойства</a></li>
+                    <li class="nav-item"><a href="{{ route('property-options.index') }}">Свойства</a></li>
                     <li class="nav-item"><a href="{{ route('home') }}">Заказы</a></li>
                     @endadmin
                 </ul>

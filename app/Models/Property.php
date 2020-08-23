@@ -17,4 +17,10 @@ class Property extends Model
     public function propertyOptions() {
         return $this->hasMany(PropertyOption::class);
     }
+
+    //TODO check table name and fields
+    public function products()
+    {
+        return $this->belongsToMany(Product::class );
+    }
 }

@@ -44,6 +44,11 @@ class Product extends Model
     {
         return $this->hasMany(Sku::class);
     }
+    //TODO check table name and fields
+    public function properties()
+    {
+        return $this->belongsToMany(Property::class );
+    }
 
     public function getPriceForCount()
     {
