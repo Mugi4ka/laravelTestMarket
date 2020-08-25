@@ -1,31 +1,34 @@
 @extends('auth.layouts.master')
 
-@isset($property)
-    @section('title', 'Редактировать свойство ' . $property->name)
+@isset($propertyOption)
+    @section('title', 'Редактировать вариант свойства ' . $propertyOption->name)
 @else
-    @section('title', 'Создать свойство')
+    @section('title', 'Создать вариант свойства')
 @endisset
 
 @section('content')
     <div class="col-md-12">
-        @isset($property)
-            <h1>Редактировать свойство <b>{{ $property->name }}</b></h1>
+        @isset($propertyOption)
+            <h1>Редактировать вариант свойства <b>{{ $propertyOption->name }}</b></h1>
         @else
-            <h1>Добавить свойство</h1>
+            <h1>Создать вариант свойства</h1>
         @endisset
 
         <form method="POST" enctype="multipart/form-data"
-              @isset($property)
-              action="{{ route('properties.update', $property) }}"
+              @isset($propertyOption)
+              action="{{ route('property-options.update', [$property, $propertyOption]) }}"
               @else
-              action="{{ route('properties.store') }}"
+              action="{{ route('property-options.store', $property) }}"
                 @endisset
         >
             <div>
-                @isset($property)
+                @isset($propertyOption)
                     @method('PUT')
                 @endisset
                 @csrf
+                    <div>
+                        <h2>Свойство {{ $property->name }}</h2>
+                    </div>
                 <div class="input-group row">
                     <label for="name" class="col-sm-2 col-form-label">Название: </label>
                     <div class="col-sm-6">
@@ -33,7 +36,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <input type="text" class="form-control" name="name" id="name"
-                               value="@isset($property){{ $property->name }}@endisset">
+                               value="@isset($propertyOption){{ $propertyOption->name }}@endisset">
                     </div>
                 </div>
 
@@ -45,7 +48,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <input type="text" class="form-control" name="name_en" id="name_en"
-                               value="@isset($property){{ $property->name_en }}@endisset">
+                               value="@isset($propertyOption){{ $propertyOption->name_en }}@endisset">
                     </div>
                 </div>
                 <br>

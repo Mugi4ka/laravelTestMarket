@@ -1,15 +1,18 @@
 @extends('auth.layouts.master')
 
-@section('title', 'Свойства')
+@section('title', 'Варианты свойства')
 
 @section('content')
     <div class="col-md-12">
-        <h1>Свойства</h1>
+        <h1>Варианты свойства</h1>
         <table class="table">
             <tbody>
             <tr>
                 <th>
                     #
+                </th>
+                <th>
+                    Свойство
                 </th>
                 <th>
                     Название
@@ -18,17 +21,16 @@
                     Действия
                 </th>
             </tr>
-            @foreach($properties as $property)
+            @foreach($propertyOptions as $propertyOption)
                 <tr>
-                    <td>{{ $property->id }}</td>
+                    <td>{{ $propertyOption->id }}</td>
                     <td>{{ $property->name }}</td>
+                    <td>{{ $propertyOption->name }}</td>
                     <td>
                         <div class="btn-group" role="group">
-                            <form action="{{ route('properties.destroy', $property) }}" method="POST">
-                                <a class="btn btn-success" type="button"
-                                   href="{{ route('properties.show', $property) }}">Открыть</a>
-                                <a class="btn btn-warning" type="button"
-                                   href="{{ route('properties.edit', $property) }}">Редактировать</a>
+                            <form action="{{ route('property-options.destroy', [$property, $propertyOption]) }}" method="POST">
+                                <a class="btn btn-success" type="button" href="{{ route('property-options.show', [$propertyOption, $property]) }}">Открыть</a>
+                                <a class="btn btn-warning" type="button" href="{{ route('property-options.edit', [$propertyOption, $property]) }}">Редактировать</a>
                                 @csrf
                                 @method('DELETE')
                                 <input class="btn btn-danger" type="submit" value="Удалить"></form>
@@ -38,8 +40,8 @@
             @endforeach
             </tbody>
         </table>
-        {{ $properties->links() }}
+{{--        {{ $property->links() }}--}}
         <a class="btn btn-success" type="button"
-           href="{{ route('properties.create') }}">Добавить свойство</a>
+           href="{{ route('property-options.create', $property) }}">Добавить вариант свойства</a>
     </div>
 @endsection

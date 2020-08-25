@@ -12,77 +12,99 @@ class PropertyOptionController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  Property  $property
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Property $property)
     {
-        $properties = Property::paginate(10);
-        return view('auth.properties.index', compact('properties'));
+        $propertyOptions = PropertyOption::paginate(10);
+        return view('auth.property_options.index', compact('propertyOptions', 'property'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param  Property  $property
+     *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Property $property)
     {
-        //
+        return view('auth.property_options.form', compact('property'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Property  $property
+     *
+     * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request, Property $property)
     {
-        //
+        $params = $request->all();
+        $params['property_id'] = $request->property->id;
+        PropertyOption::create($params);
+
+        return redirect()->route('property-options.index', $property);
     }
 
     /**
      * Display the specified resource.
      *
+     * @param  Property  $property
      * @param  \App\Models\PropertyOption  $propertyOption
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show(PropertyOption $propertyOption)
+    public function show(Property $property, PropertyOption $propertyOption)
     {
-        //
+        return view('auth.property-options.show', compact('property', 'propertyOption'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\PropertyOption  $propertyOption
+     * @param  Property  $property
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit(PropertyOption $propertyOption)
+    public function edit(Property $property, PropertyOption $propertyOption)
     {
-        //
+        return view('auth.property_options.form', compact('property', 'propertyOption'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  Property  $property
      * @param  \App\Models\PropertyOption  $propertyOption
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PropertyOption $propertyOption)
+    public function update(Request $request, Property $property, PropertyOption $propertyOption)
     {
-        //
+        $params = $request->all();
+        $propertyOption->update($params);
+
+        return redirect()->route('property-options.index', $property);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\PropertyOption  $propertyOption
+     *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function destroy(PropertyOption $propertyOption)
+    public function destroy(Property $property,PropertyOption $propertyOption)
     {
-        //
+        $propertyOption->delete();
+        return redirect()->route('property-options.index', $property);
     }
 }
