@@ -7,7 +7,7 @@ use App\Http\Requests\SkuRequest;
 use App\Models\Product;
 use App\Models\Sku;
 use Illuminate\Http\Request;
-use Psy\Util\Str;
+use Illuminate\Support\Str;
 
 class SkuController extends Controller
 {
@@ -57,20 +57,22 @@ class SkuController extends Controller
      * @param \App\Models\Sku $sku
      * @return void
      */
-    public function show(Product $product, Sku $skus)
+    public function show(Product $product, Sku $sku)
     {
-        //
+        return view('auth.skus.show', compact('product', 'sku'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Sku $sku
+     * @param  Product  $product
+     * @param  Sku  $skus
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product, Sku $skus)
+    public function edit(Product $product, Sku $sku)
     {
-        //
+        return view('auth.skus.form', compact('product', 'sku'));
     }
 
     /**
@@ -81,22 +83,27 @@ class SkuController extends Controller
      * @param Sku $skus
      * @return void
      */
-    public function update(Request $request, Product $product, Sku $skus)
+    public function update(Request $request, Product $product, Sku $sku)
     {
-        //
+        $params = $request->all();
+        $params['product_id'] = $request->product->id;
+        $sku->update($params);
+        $sku->propertyOptions()->sync($request->property_id);
+        return redirect()->route('skus.index', $product);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Product $product
-     * @param Sku $skus
+     * @param  Product  $product
+     * @param  Sku  $sku
+     *
      * @return void
      * @throws \Exception
      */
-    public function destroy(Product $product, Sku $skus)
+    public function destroy(Product $product, Sku $sku)
     {
-        $skus->delete();
+        $sku->delete();
         return redirect()->route('skus.index', $product);
     }
 }

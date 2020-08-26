@@ -30,14 +30,14 @@
                         <label for="price" class="col-sm-2 col-form-label">Цена:</label>
                         <div class="col-sm-2">
                             @include('auth.layouts.error', ['fieldName'=>'price'])
-                            <input type="text" class="form-control" name="price" id="price" value="@isset($sku){{$sku->price}}@endisset">
+                            <input type="text" class="form-control" name="price" value="@isset($sku){{$sku->price}}@endisset">
                         </div>
                     </div>
                     <div class="input-group row">
                         <label for="price" class="col-sm-2 col-form-label">Количество:</label>
                         <div class="col-sm-2">
                             @include('auth.layouts.error', ['fieldName'=>'count'])
-                            <input type="text" class="form-control" name="count" id="count" value="@isset($sku){{$sku->price}}@endisset">
+                            <input type="text" class="form-control" name="count" value="@isset($sku){{$sku->count}}@endisset">
                         </div>
                     </div>
                 @foreach($product->properties as $property)
@@ -48,9 +48,9 @@
                                 @foreach($property->propertyOptions as $propertyOption)
                                     <option value="{{ $propertyOption->id }}"
                                             @isset($sku)
-{{--                                            @if($sku->category_id == $category->id)--}}
-{{--                                            selected--}}
-{{--                                            @endif--}}
+                                            @if($sku->propertyOptions->contains($propertyOption->id))
+                                            selected
+                                            @endif
                                             @endisset
                                     >{{ $propertyOption->name }}</option>
                                 @endforeach
