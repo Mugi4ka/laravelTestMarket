@@ -33,9 +33,9 @@
         </div>
     </form>
     <div class="row">
-        @foreach($productList as $product)
-            @include('layouts.card', compact('product'))
+        @foreach($skus as $sku)
+            @include('layouts.card', compact('sku'))
         @endforeach
     </div>
-    {{ $productList->links() }}
+    {{ $skus->links() }}
 @endsection

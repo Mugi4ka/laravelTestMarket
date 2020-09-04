@@ -6,25 +6,22 @@
 </p>
 <table>
     <tbody>
-    @foreach($order->products as $product)
-        <td><span class="badge">{{ $product->countInOrder }}</span>
-            <div class="btn-group form-inline">
-                <form action="{{ route('basket-remove', $product) }}" method="POST">
-                    <button type="submit" class="btn btn-danger" href="">
-                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                    </button>
-                    @csrf
-                </form>
-                <form action="{{ route('basket-add', $product) }}" method="POST">
-                    <button type="submit" class="btn btn-success" href="">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </button>
-                    @csrf
-                </form>
-            </div>
-        </td>
-        <td>{{ $product->price }} {{ \App\Services\CurrencyConversion::getCurrencySymbol() }}₽</td>
-        <td>{{ $product->getPriceForCount() }} ₽</td>
+    @foreach($order->skus as $sku)
+        <tr>
+            <td>
+                <a href="{{ route('sku', [$sku->product->category->code, $sku->product->code, $sku]) }}">
+                    <img height="56px" src="{{ Storage::url($sku->product->image) }}">
+                    {{ $sku->product->__('name') }}
+                </a>
+            </td>
+            <td><span class="badge">{{ $sku->countInOrder }}</span>
+                <div class="btn-group form-inline">
+                    {!! $sku->product->__('description') !!}
+                </div>
+            </td>
+            <td>{{ $sku->price }} {{ $currencySymbol }}.</td>
+            <td>{{ $sku->getPriceForCount() }} {{ $currencySymbol }}.</td>
+        </tr>
     @endforeach
     </tbody>
 </table>
