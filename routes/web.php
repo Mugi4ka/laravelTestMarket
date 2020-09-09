@@ -54,6 +54,7 @@ Route::middleware('set_locale')->group(function () {
             Route::resource('products/{product}/skus', 'SkuController');
             Route::resource('properties', 'PropertyController');
             Route::resource('properties/{property}/property-options', 'PropertyOptionController');
+            Route::resource('coupons', 'CouponController');
 
         });
     });
@@ -74,6 +75,7 @@ Route::middleware('set_locale')->group(function () {
             Route::get('/', 'BasketController@basket')->name('basket');
             Route::get('/place', 'BasketController@basketPlace')->name('basket-place');
             Route::post('/place', 'BasketController@basketConfirm')->name('basket-confirm');
+            Route::post('coupon', 'BasketController@setCoupon')->name('set-coupon');
         });
     });
 

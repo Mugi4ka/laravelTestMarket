@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Currency extends Model
 {
 
-    protected $fillable = [
-        'rate',
-    ];
+    protected $fillable
+        = [
+            'rate',
+        ];
 
     public function scopeByCode($query, $code)
     {
@@ -20,4 +21,5 @@ class Currency extends Model
     {
         return $this->isMain() === 1;
     }
+
 }

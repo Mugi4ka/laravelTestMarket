@@ -5,6 +5,7 @@ namespace App\Classes;
 
 
 use App\Mail\OrderCreated;
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Sku;
@@ -18,7 +19,8 @@ class Basket
 
     /**
      * Basket constructor.
-     * @param bool $createOrder
+     *
+     * @param  bool  $createOrder
      */
     public function __construct($createOrder = false)
     {
@@ -28,7 +30,8 @@ class Basket
             if (Auth::check()) {
                 $data['user_id'] = Auth::id();
             }
-            $data['currency_id'] = CurrencyConversion::getCurrentCurrencyFromSession()->id;
+            $data['currency_id']
+                = CurrencyConversion::getCurrentCurrencyFromSession()->id;
 
             $this->order = new Order($data);
             session(['order' => $this->order]);
@@ -87,7 +90,7 @@ class Basket
         }
     }
 
-    public function addSku (Sku $sku)
+    public function addSku(Sku $sku)
     {
         if ($this->order->skus->contains($sku)) {
             $pivotRow = $this->order->skus->where('id', $sku->id)->first();
@@ -103,5 +106,14 @@ class Basket
         return true;
     }
 
+    public function setCoupon(Coupon $coupon)
+    {
+        $this->order->coupon()->associate($coupon);
+    }
+
+    public function clearCoupon()
+    {
+        $this->order->coupon()->dissociate();
+    }
 
 }
