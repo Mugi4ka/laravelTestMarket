@@ -37,6 +37,7 @@
 {{--                    <li class="nav-item"><a href="{{ route('property-options.index') }}">Варианты свойств</a></li>--}}
                     <li class="nav-item"><a href="{{ route('home') }}">Заказы</a></li>
                     <li class="nav-item"><a href="{{ route('coupons.index') }}">Купоны</a></li>
+                    <li class="nav-item"><a href="{{ route('merchants.index') }}">Поставщики</a></li>
                     @endadmin
                 </ul>
                 @guest()
