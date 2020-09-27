@@ -2,22 +2,10 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
-use Carbon\Carbon;
 use DiDom\Document;
 use GuzzleHttp\Client;
-use phpDocumentor\Reflection\Types\False_;
-use Psr\Http\Message\UriInterface;
-use Spatie\Crawler\Crawler;
-use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\SitemapGenerator;
 use Spatie\Sitemap\Tags\Url;
-=======
-use DiDom\Document;
-use GuzzleHttp\Client;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
->>>>>>> origin/master
 
 class ParserController extends Controller
 {
@@ -66,7 +54,6 @@ class ParserController extends Controller
 
 
         fclose($fp);
-<<<<<<< HEAD
     }
 
     public function sitemapGenerator()
@@ -92,10 +79,7 @@ class ParserController extends Controller
 
             })
             ->writeToFile($path);
-=======
 
-
->>>>>>> origin/master
     }
 
 
