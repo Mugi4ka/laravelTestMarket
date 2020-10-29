@@ -20,11 +20,13 @@
             </div>
             <div class="col-sm-2 col-md-2">
                 <label for="new">
-                    <input type="checkbox" name="new" id="new" @if(request()->has('new')) checked @endif> Новинка </label>
+                    <input type="checkbox" name="new" id="new" @if(request()->has('new')) checked @endif> Новинка
+                </label>
             </div>
             <div class="col-sm-2 col-md-2">
                 <label for="recommend">
-                    <input type="checkbox" name="recommend" id="recommend" @if(request()->has('recommend')) checked @endif> Рекомендуем </label>
+                    <input type="checkbox" name="recommend" id="recommend"
+                           @if(request()->has('recommend')) checked @endif> Рекомендуем </label>
             </div>
             <div class="col-sm-6 col-md-3">
                 <button type="submit" class="btn btn-primary">Фильтр</button>

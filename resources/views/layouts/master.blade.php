@@ -12,6 +12,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/starter-template.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -24,7 +25,12 @@
                 <li @routeactive('index')><a href="{{ route('index') }}">@lang('main.all_products')</a></li>
                 <li @routeactive('categor*')><a href="{{ route('categories') }}">@lang('main.categories')</a>
                 </li>
-                <li @routeactive('basket*')><a href="{{ route('basket') }}">@lang('main.cart')</a></li>
+                <li class="basketAvailable" @routeactive('basket*')>
+                    @if(session('order'))
+                        <span class="basketMark badge badge-warning">{{count(session('order')->skus)}}</span>
+                    @endif
+                    <a href="{{ route('basket') }}">@lang('main.cart')</a>
+                </li>
                 <li><a href="{{ route('reset') }}">@lang('main.reset_project')</a></li>
                 <li><a href="{{ route('locale', __('main.set_lang')) }}">@lang('main.set_lang')</a></li>
 

@@ -1,5 +1,5 @@
-<div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
+<div class="col-md-3">
+    <div class="card-wrap thumbnail">
         <div class="labels">
             @if($sku->product->isNew())
                 <span class="badge badge-success">@lang('main.properties.new')</span>
@@ -11,17 +11,17 @@
                 <span class="badge badge-danger">@lang('main.properties.hit')</span>
             @endif
         </div>
-        <img src="{{ Storage::url($sku->product->image) }}" alt="{{ $sku->product->__('name') }}">
-        <div class="caption">
-            <h3>{{ $sku->product->__('name') }}</h3>
+        <a href="{{ route('sku', [isset($category) ? $category->code : $sku->product->category->code, $sku->product->code, $sku->id]) }}"><img src="{{ Storage::url($sku->product->image) }}" alt="{{ $sku->product->__('name') }}"></a>
+        <div class="caption text-left">
+            <h3 class="text-center">{{ $sku->product->__('name') }}</h3>
             @isset($sku->product->properties)
                 @foreach($sku->propertyOptions as $propertyOption)
-                    <h4>{{ $propertyOption->property->name }}: {{ $propertyOption->name }}</h4>
+                    <h6>{{ $propertyOption->property->name }}: {{ $propertyOption->name }}</h6>
                 @endforeach
             @endisset
-            <p>{{ $sku->price }} {{ $currencySymbol }}</p>
+            <p>Доступное количество: {{ $sku->count }}</p>
             <p>
-            <form action="{{ route('basket-add', $sku) }}" method="POST">
+            <form class="text-center" action="{{ route('basket-add', $sku) }}" method="POST">
                 @if($sku->isAvailable())
                     <button type="submit" class="btn btn-primary" role="button">@lang('main.add_to_basket')</button>
                 @else
@@ -33,6 +33,7 @@
                 @csrf
             </form>
             </p>
+            <p class="text-right">Цена: <b>{{ $sku->price }} {{ $currencySymbol }}</b></p>
         </div>
     </div>
 </div>

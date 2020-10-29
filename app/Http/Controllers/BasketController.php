@@ -74,7 +74,8 @@ class BasketController extends Controller
                 $skus->product->name.' не доступен для заказа');
         }
 
-        return redirect()->route('basket');
+//        return redirect()->route('basket');
+        return redirect()->back();
     }
 
     public function basketRemove(Sku $skus)

@@ -11,6 +11,7 @@ use App\Models\Sku;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\App;
+use function React\Promise\all;
 
 class MainController extends Controller
 {
@@ -34,7 +35,7 @@ class MainController extends Controller
             }
         }
 
-        $skus = $skusQuery->paginate(6)->withPath("?" . $request->getQueryString());
+        $skus = $skusQuery->paginate(8)->withPath("?" . $request->getQueryString());
 
         return view('index', compact('skus'));
     }
